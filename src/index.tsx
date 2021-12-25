@@ -6,7 +6,7 @@ import 'antd/dist/antd.min.css';
 
 import './index.css';
 import {BrowserRouter} from "react-router-dom";
-import App from "./app";
+import App from "./App";
 
 
 ReactDOM.render(

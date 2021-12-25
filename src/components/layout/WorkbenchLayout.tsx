@@ -1,15 +1,17 @@
 import {Layout} from "antd";
 import { Outlet } from "react-router-dom";
+import ExampleHeaderContent from "../header/ExampleHeaderContent";
 
 const {Header, Sider, Content} = Layout;
 
-export default function HomeLayout() {
+export default function WorkbenchLayout() {
+    let headerHeight = '64px';
     return (
         <Layout style={{height: '100%'}}>
-            <Header style={{height: '60px'}}>
-                Header Info
+            <Header style={{height: headerHeight, backgroundColor: 'white'}}>
+                <ExampleHeaderContent/>
             </Header>
-            <Content style={{height: 'calc(100% - 60px)'}}>
+            <Content style={{height: `calc(100% - ${headerHeight})`}}>
                 <Layout style={{height: '100%', width: '100%'}}>
                     <Sider width={'180px'} style={{height: '100%'}}>
                         Side
