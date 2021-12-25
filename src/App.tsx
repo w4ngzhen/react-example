@@ -1,7 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import WorkbenchLayout from "./components/layout/WorkbenchLayout";
 import PortalLayout from "./components/layout/PortalLayout";
-import PortalPage from "./pages/portal-page/PortalPage";
+import {PortalPage} from "./pages/portal-page/PortalPage";
 
 export default function App() {
     return (

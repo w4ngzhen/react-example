@@ -1,33 +1,69 @@
 import './index.css';
 import logo from '../../assets/img/logo.svg'
-import UserMenu from "../user-menu/UserMenu";
-import {Button} from "antd";
+import {UserMenu} from "../user-menu/UserMenu";
+import {Button, Drawer, Spin} from "antd";
 import {useNavigate} from "react-router-dom";
+import {observer} from "mobx-react-lite";
+import stores from '../../stores';
+import {useState} from "react";
+import {doLogin} from "../../api/api-login";
 
-let isLogin = true;
 
-export default function ExampleHeaderContent() {
+export const ExampleHeaderContent = observer(() => {
     let navigate = useNavigate();
+    let [loginDrawerVisible, setLoginDrawerVisible] = useState(false);
+
+    const login = () => {
+        // 1 show drawer
+        setLoginDrawerVisible(true);
+        // 2 invoke login API
+        doLogin().then(user => {
+            stores.userStore.setUserInfo(user)
+            setLoginDrawerVisible(false);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     return (
-        <div className={'example-header-content'}>
-            <div className={'example-header-content__image'}>
-                <img src={logo} alt={''}/>
+        <>
+            <div className={'example-header-content'}>
+                <div className={'example-header-content__image'}>
+                    <img src={logo} alt={''}/>
+                </div>
+                <div className={'example-header-content__title'}>
+                    <p onClick={() => {
+                        navigate('/');
+                    }}>
+                        React Example
+                    </p>
+                </div>
+                <div className={'example-header-content__blank'}>
+                    {/* 这里是空白内容 */}
+                </div>
+                <div className={'example-header-content__user-menu'}>
+                    {
+                        stores.userStore.hasUserInfo
+                            ? <UserMenu/>
+                            : <Button type={'primary'} onClick={login}>登录</Button>
+                    }
+                </div>
             </div>
-            <div className={'example-header-content__title'}>
-                <p onClick={() => {
-                    navigate('/');
+            <Drawer title="Login..."
+                    placement="right"
+                    onClose={() => {
+                    }}
+                    visible={loginDrawerVisible}>
+                <div style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
                 }}>
-                    React Example
-                </p>
-            </div>
-            <div className={'example-header-content__blank'}>
-                {/* 这里是空白内容 */}
-            </div>
-            <div className={'example-header-content__user-menu'}>
-                {
-                    isLogin ? <UserMenu/>: <Button type={'primary'}>登录</Button>
-                }
-            </div>
-        </div>
+                    <Spin tip={'login...'}/>
+                </div>
+            </Drawer>
+        </>
     );
-}
+});
