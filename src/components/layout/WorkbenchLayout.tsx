@@ -1,10 +1,11 @@
 import {Layout} from "antd";
 import { Outlet } from "react-router-dom";
 import {ExampleHeaderContent} from "../header/ExampleHeaderContent";
+import {observer} from "mobx-react-lite";
 
 const {Header, Sider, Content} = Layout;
 
-export default function WorkbenchLayout() {
+export const WorkbenchLayout = observer(() => {
     let headerHeight = '64px';
     return (
         <Layout style={{height: '100%'}}>
@@ -23,4 +24,4 @@ export default function WorkbenchLayout() {
             </Content>
         </Layout>
     );
-}
+});

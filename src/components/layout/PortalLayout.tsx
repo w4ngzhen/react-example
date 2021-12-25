@@ -1,10 +1,11 @@
 import {Layout} from "antd";
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import {ExampleHeaderContent} from "../header/ExampleHeaderContent";
+import {observer} from "mobx-react-lite";
 
 const {Header, Footer, Content} = Layout;
 
-export default function PortalLayout() {
+export const PortalLayout = observer(() => {
     let headerHeight = '64px';
     let footerHeight = '64px';
     return (
@@ -20,4 +21,4 @@ export default function PortalLayout() {
             </Footer>
         </Layout>
     );
-}
+});
