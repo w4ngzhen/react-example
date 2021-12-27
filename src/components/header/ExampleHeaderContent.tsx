@@ -4,15 +4,14 @@ import {UserMenu} from "../user-menu/UserMenu";
 import {Button, Drawer, Spin} from "antd";
 import {useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import {useContext, useState} from "react";
+import {useState} from "react";
 import {doLogin} from "../../api/api-login";
-import {RootStoreContext} from "../../stores";
+import rootStore from "../../stores";
 
 // React集成mobx：
 // 5. 使用observer包装使用了store的函数组件；使用useContext获取store；在合适的位置get或触发action
 export const ExampleHeaderContent = observer(() => {
 
-    let rootStore = useContext(RootStoreContext);
     let navigate = useNavigate();
     let [loginDrawerVisible, setLoginDrawerVisible] = useState(false);
 

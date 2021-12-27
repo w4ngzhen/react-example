@@ -2,11 +2,9 @@ import {Menu, Dropdown} from 'antd';
 import {DownOutlined} from '@ant-design/icons';
 import {observer} from "mobx-react-lite";
 import {useNavigate} from "react-router-dom";
-import {useContext} from "react";
-import {RootStoreContext} from "../../stores";
+import rootStore from "../../stores";
 
 export const UserMenu = observer((props) => {
-    let rootStore = useContext(RootStoreContext);
     let navigate = useNavigate();
     const menu = (
         <Menu>

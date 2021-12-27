@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import {action, computed, makeObservable, observable} from "mobx";
 import User from "../types/User";
-import React from "react";
 
 // React集成mobx：1. 定义Store
 class UserStore {
@@ -20,13 +19,11 @@ class UserStore {
 
     @computed
     get hasUserInfo() {
-        console.log('hasUserInfo')
         return !_.isEmpty(this.id) && !_.isEmpty(this.name);
     }
 
     @computed
     get userDisplayName() {
-        console.log('userDisplayName')
         if (!this.hasUserInfo) {
             return 'Unknown User';
         }
@@ -46,5 +43,3 @@ class UserStore {
 }
 
 export default UserStore;
-
-// export const UserStoreContext = React.createContext(new UserStore());
