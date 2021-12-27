@@ -31,9 +31,13 @@ class UserStore {
     }
 
     @action
-    setUserInfo({id, name}: User) {
-        this.id = id;
-        this.name = name
+    setUserInfo(user?: User) {
+        if (user) {
+            this.id = user.id;
+            this.name = user.name;
+        } else {
+            this.clearUserInfo()
+        }
     }
 
     @action

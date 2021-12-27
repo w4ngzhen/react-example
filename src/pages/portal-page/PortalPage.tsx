@@ -3,6 +3,11 @@ import {Button} from "antd";
 import {observer} from "mobx-react-lite";
 
 export const PortalPage = observer(() => {
+
+    const goToWorkbench = () => {
+
+    }
+
     return (
         <div className={'portal-page'}>
             <p style={{fontSize: '64px'}}>

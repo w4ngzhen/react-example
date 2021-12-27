@@ -5,8 +5,9 @@ import {Button, Drawer, Spin} from "antd";
 import {useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {useState} from "react";
-import {doLogin} from "../../api/api-login";
 import rootStore from "../../stores";
+import {LoginDrawer} from "../login/LoginDrawer";
+import User from "../../types/User";
 
 // React集成mobx：
 // 5. 使用observer包装使用了store的函数组件；使用useContext获取store；在合适的位置get或触发action
@@ -15,16 +16,17 @@ export const ExampleHeaderContent = observer(() => {
     let navigate = useNavigate();
     let [loginDrawerVisible, setLoginDrawerVisible] = useState(false);
 
-    const login = () => {
-        // 1 show drawer
+    const loginButtonClick = () => {
         setLoginDrawerVisible(true);
-        // 2 invoke login API
-        doLogin().then(user => {
-            rootStore.userStore.setUserInfo(user)
+    }
+
+    const onLoginComplete = (err?: Error, user?: User) => {
+        if (err) {
             setLoginDrawerVisible(false);
-        }).catch(err => {
-            console.log(err);
-        })
+            return;
+        }
+        rootStore.userStore.setUserInfo(user);
+        setLoginDrawerVisible(false);
     }
 
     return (
@@ -47,25 +49,14 @@ export const ExampleHeaderContent = observer(() => {
                     {
                         rootStore.userStore.hasUserInfo
                             ? <UserMenu/>
-                            : <Button type={'primary'} onClick={login}>登录</Button>
+                            : <Button type={'primary'} onClick={loginButtonClick}>登录</Button>
                     }
                 </div>
             </div>
-            <Drawer title="Login..."
-                    placement="right"
-                    onClose={() => {
-                    }}
-                    visible={loginDrawerVisible}>
-                <div style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Spin tip={'login...'}/>
-                </div>
-            </Drawer>
+            <LoginDrawer visible={loginDrawerVisible}
+                         onLoginComplete={
+                             (err, user) => onLoginComplete(err, user)
+                         }/>
         </>
     );
 });
