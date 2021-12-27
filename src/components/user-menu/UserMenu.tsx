@@ -1,12 +1,12 @@
 import {Menu, Dropdown} from 'antd';
 import {DownOutlined} from '@ant-design/icons';
 import {observer} from "mobx-react-lite";
-import stores from "../../stores";
 import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {RootStoreContext} from "../../stores";
 
-
-export const UserMenu = observer(() => {
-
+export const UserMenu = observer((props) => {
+    let rootStore = useContext(RootStoreContext);
     let navigate = useNavigate();
     const menu = (
         <Menu>
@@ -14,9 +14,8 @@ export const UserMenu = observer(() => {
                 About
             </Menu.Item>
             <Menu.Item key={'quit'} onClick={() => {
-                console.log('click')
-                stores.userStore.clearUserInfo();
-                // navigate('/');
+                rootStore.userStore.clearUserInfo();
+                navigate('/');
             }}>
                 Quit
             </Menu.Item>
@@ -26,7 +25,7 @@ export const UserMenu = observer(() => {
     return (
         <Dropdown overlay={menu}>
             <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                {stores.userStore.userDisplayName} <DownOutlined/>
+                {rootStore.userStore.userDisplayName} <DownOutlined/>
             </a>
         </Dropdown>
     );

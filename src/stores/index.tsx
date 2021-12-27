@@ -1,7 +1,12 @@
 import UserStore from './user-store';
+import React from "react";
 
-const userStore = new UserStore();
+export class RootStore {
+    userStore: UserStore
 
-export default {
-    userStore
+    constructor() {
+        this.userStore = new UserStore();
+    }
 }
+
+export const RootStoreContext = React.createContext<RootStore>(new RootStore());

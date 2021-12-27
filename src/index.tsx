@@ -7,12 +7,16 @@ import 'antd/dist/antd.min.css';
 import './index.css';
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
+import {RootStore, RootStoreContext} from "./stores";
 
+const rootStore = new RootStore();
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App/>
+            <RootStoreContext.Provider value={rootStore}>
+                <App/>
+            </RootStoreContext.Provider>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')

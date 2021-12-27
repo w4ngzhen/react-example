@@ -4,12 +4,13 @@ import {UserMenu} from "../user-menu/UserMenu";
 import {Button, Drawer, Spin} from "antd";
 import {useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import stores from '../../stores';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {doLogin} from "../../api/api-login";
-
+import {RootStoreContext} from "../../stores";
 
 export const ExampleHeaderContent = observer(() => {
+
+    let rootStore = useContext(RootStoreContext);
     let navigate = useNavigate();
     let [loginDrawerVisible, setLoginDrawerVisible] = useState(false);
 
@@ -18,7 +19,7 @@ export const ExampleHeaderContent = observer(() => {
         setLoginDrawerVisible(true);
         // 2 invoke login API
         doLogin().then(user => {
-            stores.userStore.setUserInfo(user)
+            rootStore.userStore.setUserInfo(user)
             setLoginDrawerVisible(false);
         }).catch(err => {
             console.log(err);
@@ -43,7 +44,7 @@ export const ExampleHeaderContent = observer(() => {
                 </div>
                 <div className={'example-header-content__user-menu'}>
                     {
-                        stores.userStore.hasUserInfo
+                        rootStore.userStore.hasUserInfo
                             ? <UserMenu/>
                             : <Button type={'primary'} onClick={login}>登录</Button>
                     }
