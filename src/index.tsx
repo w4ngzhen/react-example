@@ -7,6 +7,7 @@ import 'antd/dist/antd.min.css';
 import './index.css';
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
+// React集成mobx：4. 创建Store，并利用React的Context传递store
 import {RootStore, RootStoreContext} from "./stores";
 
 const rootStore = new RootStore();
