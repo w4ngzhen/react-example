@@ -1,6 +1,7 @@
 import {Layout} from "antd";
 import { Outlet } from "react-router-dom";
 import {ExampleHeaderContent} from "../header/ExampleHeaderContent";
+import {ExampleAsideContent} from "../aside/ExampleAsideContent";
 
 const {Header, Sider, Content} = Layout;
 
@@ -14,7 +15,7 @@ export const WorkbenchLayout = () => {
             <Content style={{height: `calc(100% - ${headerHeight})`}}>
                 <Layout style={{height: '100%', width: '100%'}}>
                     <Sider width={'180px'} style={{height: '100%'}}>
-                        Side
+                        <ExampleAsideContent/>
                     </Sider>
                     <Content style={{height: '100%'}}>
                         <Outlet/>
